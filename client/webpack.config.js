@@ -28,12 +28,14 @@ module.exports = () => {
       } ),
       new WebpackPwaManifest( {
         name: 'Just Another Text Editor',
-        short_name: 'JATE',
-        description: 'A simple text editor',
+        short_name: 'J.A.T.E.',
+        description: 'Take Notes with Javascript Syntax Highlighting',
         display: 'standalone',
-        start_url: './',
-        publicPath: './',
-        background_color: '#272822',
+        orientation: 'portrait',
+        start_url: '/',
+        publicPath: '/',
+        background_color: '#225ca3',
+        theme_color: '#225ca3',
         fingerprints: false,
         icons: [
           {
