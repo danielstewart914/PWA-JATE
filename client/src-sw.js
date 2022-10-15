@@ -28,13 +28,24 @@ registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
 // TODO: Implement asset caching
 registerRoute(
-  ( { request } ) => [ 'style', 'script', 'image', 'worker' ].includes( request.destination ),
+  ( { request } ) => [ 'style', 'script', 'worker', 'manifest' ].includes( request.destination ),
   new StaleWhileRevalidate( {
-    cacheName: 'asset-cache',
+    cacheName: 'asset-cache'
+  } )
+);
+
+registerRoute( 
+  ({request}) => request.destination === 'image',
+  new CacheFirst( {
+    cacheName: 'image-cache',
     plugins: [
       new CacheableResponsePlugin( {
         statuses: [ 0, 200 ]
+      } ),
+      new ExpirationPlugin( {
+        maxAgeSeconds: 30 * 24 * 60 * 60,
+        maxEntries: 20
       } )
     ]
   } )
-);
+ )
